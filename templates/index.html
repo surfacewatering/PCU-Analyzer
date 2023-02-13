@@ -64,17 +64,10 @@ input[type=text]{
   resize: none;
 }
 
-button{
-  color: rgb(0, 0, 0);
+.btn{
+  color: rgb(219, 131, 131);
 }
-.social-sites-link{
-  text-align: center;
-  padding: 5px 5px 5px 5px;
-}
-.social-logo{
-  max-width: 35px;
-  margin-right: 10px;
-}
+
 h3{
    font-family: helvetica, sans-serif;
   font-size: 3em;
@@ -107,7 +100,11 @@ p{
     </div>
 </div>
 
-<div class="row">
+<div >
+  <form action="http://localhost:8000/uploadfile/" method="post" enctype="multipart/form-data">
+    <input type="file" class="btn" name="file" id="file" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" />
+    <input type="submit" class="btn"> &nbsp;&nbsp;&nbsp;&nbsp;
+  </form>
 
 </div>
 <div class="footer" id="contact">
