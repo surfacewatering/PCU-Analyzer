@@ -21,6 +21,7 @@ def home_page(request: Request):
 
 
 @app.post("/upload")
-async def check(request: Request,file: UploadFile = File(...)):
+async def check(request: Request, file: UploadFile = File(...), file2: UploadFile = File(...)):
     df = pd.read_csv(file.file)
-    return templates.TemplateResponse("index.html", {"request": request,"result":file.filename})
+    df = pd.read_csv(file2.file)
+    return templates.TemplateResponse("index.html", {"request": request,"result":file2.filename})
