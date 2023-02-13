@@ -23,5 +23,7 @@ def home_page(request: Request):
 @app.post("/upload")
 async def check(request: Request, file: UploadFile = File(...), file2: UploadFile = File(...)):
     df = pd.read_csv(file.file)
-    df = pd.read_csv(file2.file)
+    df2 = pd.read_csv(file2.file)
+    df['Travel time']=df['Exit'] - df['Entry']
+    print(df)
     return templates.TemplateResponse("index.html", {"request": request,"result":file2.filename})

@@ -34,52 +34,41 @@ a:active{
 h1{
   font-family:  Arial, sans-serif;
   font-size: 4em;
-  color: #f2f5e0;
+  color: #f4f6e7;
   text-align: center;
   margin: 5% auto;
   text-shadow: 1px 1px 5px #000;
 }
-
-
 .footer{
-  background-color: #14181b;;
-  padding-top: 10px;
-  padding-bottom: 3px;
+  background-color: #14181b;
+  padding: 30px;
+  margin: 10px;
+  font-size:20px;
+}
+.btn{
+  font-size: 15px;
+  border-radius: 12px;
+  padding: 12px;
+   border: 2px solid #080808;
+  background-color: #555555;
+   transition-duration: 0.4s;
+   color:white;
 }
 
-
-form{
-  display: inline-block;
-  text-align: center;
+.btn:hover {
+  background-color: #030303; /* Green */
   color: white;
 }
-input[type=text]{
-  width: 100%;
-  padding: 8px 10px;
-  margin: 2px 0;
-  box-sizing: border-box;
-  border: 2px solid #ccc;
-  border-radius: 4px;
-  background-color: #f8f8f8;
-  resize: none;
-}
 
-.btn{
-  color: rgb(219, 131, 131);
-}
-
-h3{
-   font-family: helvetica, sans-serif;
-  font-size: 3em;
-  color: #fff;
-  text-align: center;
-  margin-bottom: 10px;
-  text-shadow: 1px 1px 5px #000;
-}
 p{
   font-family: sans-serif;
   color: white;
-  text-align: center;
+  text-align: left;
+}
+.column{
+  float:left;
+  width: 50%;
+  flex:50%;
 }
    </style>
 </head>
@@ -100,17 +89,37 @@ p{
     </div>
 </div>
 
-<div >
-  <form method="post" action="/upload" enctype="multipart/form-data">
-    <input type="file" class="btn" name="file" id="file" accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" />
-    <input type="file" class="btn" name="file2" id="file2"
+<div>
+<div class="contanier w-50" style="margin:10px;background-color:#14181b;padding:30px;">
+
+    <p style="text-align:center;text-decoration: underline;font-size:30px;">Developing web-application for estimating dynamic PCU</p>
+
+    <p style="text-align:center;font-size:20px;text-decoration: underline;">Input</p>
+    <form method="post" action="/upload" enctype="multipart/form-data">
+    <div style="text-align:left;padding-left:30px;">
+  <p> CSV file consisting of entry and exit time of individual vehicles and 2-projected area of
+    these vehicle classes.</p> <input type="file" class="btn" name="file" id="file"
       accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" />
-    <input type="submit" class="btn"> &nbsp;&nbsp;&nbsp;&nbsp;
-  </form>
+  
+    <br>
+    <br>
+    
+    </div>
+    <div class="row" style="display: flex;
+  justify-content: center;
+  align-items: center;">
+      <input type="submit" class="btn" >
+    </div>
+    
+     
+    </form>
+  </div>
 
 </div>
-<div class="footer" id="contact">
-    <p > {{result}} You can connect with me in the following social sites.</p>   
+<div class="footer" id="contact" style="display: flex;
+  justify-content: center;
+  align-items: center;">
+    <p > Resultant PCU : {{result}}</p>   
 </div>
 </div>
 
