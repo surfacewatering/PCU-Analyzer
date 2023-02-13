@@ -1,5 +1,5 @@
 from pydantic import BaseModel
-from fastapi import FastAPI, Request, Response, status
+from fastapi import FastAPI, Request, Response, status, HTTPException
 from fastapi.responses import HTMLResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
@@ -8,6 +8,7 @@ from starlette.responses import RedirectResponse, Response
 import datetime
 import time
 import csv
+from io import BytesIO
 from fastapi import FastAPI, File, UploadFile
 import pandas as pd
 app = FastAPI()
@@ -18,13 +19,8 @@ templates = Jinja2Templates(directory="templates")
 def home_page(request: Request):
     return templates.TemplateResponse("index.html", {"request": request})
 
-@app.post("/pcu", response_class=HTMLResponse)
-def find_pcu(request: Request, fileName:str= Form(...)):
-    #initialize the model
-    return templates.TemplateResponse("list_fish.html", {"request": request})
 
-
-@app.post("/")
-def upload(request: Request, file: UploadFile = File(...)):
-    print(file.filename)
-    return templates.TemplateResponse('results.html', context={'request': request})
+@app.post("/upload")
+async def check(request: Request,file: UploadFile = File(...)):
+    df = pd.read_csv(file.file)
+    return templates.TemplateResponse("index.html", {"request": request,"result":file.filename})

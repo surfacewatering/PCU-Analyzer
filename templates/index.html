@@ -101,14 +101,14 @@ p{
 </div>
 
 <div >
-  <form action="http://localhost:8000/uploadfile/" method="post" enctype="multipart/form-data">
-    <input type="file" class="btn" name="file" id="file" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" />
+  <form method="post" action="/upload" enctype="multipart/form-data">
+    <input type="file" class="btn" name="file" id="file" accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" />
     <input type="submit" class="btn"> &nbsp;&nbsp;&nbsp;&nbsp;
   </form>
 
 </div>
 <div class="footer" id="contact">
-    <p > You can connect with me in the following social sites.</p>   
+    <p > {{result}} You can connect with me in the following social sites.</p>   
 </div>
 </div>
 
