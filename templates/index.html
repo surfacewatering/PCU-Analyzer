@@ -131,7 +131,9 @@ th,td{
     <form method="post" action="/upload" enctype="multipart/form-data">
     <div style="text-align:left;padding-left:30px;">
   <p> CSV file consisting of entry and exit time of individual vehicles </p> <input type="file" class="btn" name="file" id="file"
-      accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" />
+      accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" required/>
+      <p> Projected area of these vehicle classes </p> <input type="file" class="btn" name="file2"
+        id="file2" accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" required />
   
     <br>
     <br>

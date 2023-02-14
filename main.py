@@ -16,7 +16,8 @@ def home_page(request: Request):
     return templates.TemplateResponse("index.html", {"request": request})
 
 @app.post("/upload")
-async def check(request: Request, file: UploadFile = File(...)):
+async def check(request: Request, file: UploadFile = File(...),file2:UploadFile=File(...)):
+    try:
         db = pd.read_csv(file.file)
         fields=[]
         rows=[]
@@ -104,7 +105,7 @@ async def check(request: Request, file: UploadFile = File(...)):
         busAvSPEED = [(0 if busNO[i]==0 else busSPEED[i]/busNO[i]) for i in range(87)]
         singleaxleAvSPEED = [(0 if singleaxleNO[i]==0 else singleaxleSPEED[i]/singleaxleNO[i]) for i in range(87)]
         multiaxleAvSPEED = [(0 if multiaxleNO[i]==0 else multiaxleSPEED[i]/multiaxleNO[i]) for i in range(87)]
-
+        
         area={
             'smallcar': 5.36,
             'bigcar': 8.11,
@@ -149,7 +150,10 @@ async def check(request: Request, file: UploadFile = File(...)):
 
 
         print("200 OK")
-
         return templates.TemplateResponse("index.html", {"request": request, "result": FinalValues})
+    except:
+        return RedirectResponse(url="/", status_code=status.HTTP_303_SEE_OTHER)
+        
+        
    
        
