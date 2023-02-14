@@ -7,6 +7,8 @@ from starlette.responses import RedirectResponse, Response
 import csv
 from fastapi import FastAPI, File, UploadFile
 import pandas as pd
+from matplotlib import pyplot as plt
+
 app = FastAPI()
 app.mount("/static", StaticFiles(directory="static"), name="static")
 templates = Jinja2Templates(directory="templates")
@@ -107,14 +109,13 @@ async def check(request: Request, file: UploadFile = File(...),file2:UploadFile=
         multiaxleAvSPEED = [(0 if multiaxleNO[i]==0 else multiaxleSPEED[i]/multiaxleNO[i]) for i in range(87)]
         
         area={
-            'smallcar': 5.36,
-            'bigcar': 8.11,
-            'twowheeler': 1.2,
-            'lcv': 12.81,
-            'bus': 24.54,
-            'singleaxle': 17.63,
-            'multiaxle': 17.63,
+            
         }
+
+        db1 = pd.read_csv(file2.file)
+
+        for i in range(len(list(db1.Type))):
+            area[list(db1.Vehicle)[i]]=float(list(db1.Area)[i])
 
         smallcarIndiPCU = [(0 if smallcarAvSPEED[i]==0 else (smallcarAvSPEED[i]/smallcarAvSPEED[i])/(area['smallcar']/area['smallcar'])) for i in range(87)]
         bigcarIndiPCU = [(0 if bigcarAvSPEED[i]==0 else (smallcarAvSPEED[i]/bigcarAvSPEED[i])/(area['smallcar']/area['bigcar'])) for i in range(87)]
@@ -147,13 +148,18 @@ async def check(request: Request, file: UploadFile = File(...),file2:UploadFile=
             csvwriter=csv.writer(csvfile)
             csvwriter.writerow(OutputFields)
             csvwriter.writerows(FinalValues)
+        
+        def q(k):
+            return 150*k-(150*k*k)/300
 
+        x = [i for i in range(300)]
+        plt.xlabel("Density in veh/km")
+        plt.ylabel("Flow in veh/hr")
+        plt.plot(x, [q(k) for k in x], color='red')
+        plt.scatter(Density, FLOWinVehperHr, color='blue')
+        plt.savefig("static/q-k.png")
 
         print("200 OK")
         return templates.TemplateResponse("index.html", {"request": request, "result": FinalValues})
     except:
         return RedirectResponse(url="/", status_code=status.HTTP_303_SEE_OTHER)
-        
-        
-   
-       
