@@ -22,7 +22,6 @@ a:active{
   color:inherit;
 }
 #back-image{
-    background-image: url('static/pic.jpg');
     width: 100%; 
     height: 200px;; 
     object-fit: cover;
@@ -59,6 +58,31 @@ h1{
   background-color: #030303; /* Green */
   color: white;
 }
+input[type=text]{
+  width: 100%;
+  padding: 8px 10px;
+  margin: 2px 0;
+  box-sizing: border-box;
+  border: 2px solid #ccc;
+  border-radius: 4px;
+  background-color: #f8f8f8;
+  resize: none;
+}
+
+input[type=submit]{
+  border:none;
+  border-radius: 10px;
+  padding:5px;
+  font-size: large;
+  font-weight: 300;
+  color: white;
+  background-color:rgb(187, 133, 212);
+  box-shadow: 0px 0px 6px aqua;
+}
+
+.btn{
+  color: white;
+}
 
 p{
   font-family: sans-serif;
@@ -70,13 +94,31 @@ p{
   width: 50%;
   flex:50%;
 }
+table,td{
+  border:2px solid rgb(187, 133, 212);
+}
+table{
+  margin: auto;
+  width: 80vw;
+  border-radius: 10px;
+  box-shadow: 0px 0px 10px aqua;
+  margin-top: 20px;
+}
+th,td{
+  text-align: center;
+  font-size: large;
+  padding: 5px;
+}
+#about{
+  background-image: url('static/pic.jpg');
+}
    </style>
 </head>
 
 
 
-<body style="background-color:black">
-    <div class="container w-50 " style="padding:10px;">
+<body style="background-color:black;margin:0">
+    <div class="container w-50 " >
 
 <link href='https://fonts.googleapis.com/css?family=Lobster' rel='stylesheet' type='text/css'>
 <div class="header">
@@ -84,9 +126,16 @@ p{
 </div>
 
 <div id="about">
-    <div id="back-image">
-        <h1>PCU Estimator</h1>
-    </div>
+  <div id="back-image">
+      <h1>PCU Estimator</h1>
+  </div>
+  <div style="display: flex; justify-content: center;padding: 20px;background-color: transparent;">
+    <form method="post" action="/upload" enctype="multipart/form-data">
+      <input type="file" class="btn" name="file" id="file" accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" />
+      <input type="submit" class="btn"> &nbsp;&nbsp;&nbsp;&nbsp;
+    </form>
+
+  </div>
 </div>
 
 <div>
@@ -119,9 +168,35 @@ p{
   justify-content: center;
   align-items: center;">
     <p > Resultant PCU : {{result}}</p>   
+{% if result %}
+<div class="footer" id="wrap" style="color: white">
+  <table CELLSPACING=0>
+      <thead>
+        <tr>
+          <th>Time Interval</th>
+          <th>PCU/5min</th>
+          <th>Total PCU/Hr</th>
+          <th>SMS</th>
+          <th>Density</th>
+          <th>Flow in Veh/hr</th>
+        </tr>
+      </thead>
+      <tbody class="text-center text-sm" id="table-body">
+        {% for row in result %}
+          <tr>
+            <td>{{ row[5] }}</td>
+            <td>{{ row[0] }}</td>
+            <td>{{ row[1] }}</td>
+            <td>{{ row[2] }}</td>
+            <td>{{ row[3] }}</td>
+            <td>{{ row[4] }}</td>
+          </tr>
+        {% endfor %}
+      </tbody>
+</table>
 </div>
+{% endif %}
 </div>
-
 </body>
 
 </html>
