@@ -125,7 +125,7 @@ th,td{
 <div>
 <div class="contanier w-50" style="margin:10px;background-color:#14181b;padding:30px;">
 
-    <p style="text-align:center;text-decoration: underline;font-size:30px;">Developing web-application for estimating dynamic PCU</p>
+    <p style="text-align:center;text-decoration: underline;font-size:30px;">Web-application for estimating Dynamic PCU</p>
 
     <p style="text-align:center;font-size:20px;text-decoration: underline;">Input</p>
     <form method="post" action="/upload" enctype="multipart/form-data">
@@ -155,8 +155,8 @@ th,td{
   align-items: center;">
     
 {% if result %}
-<p>Results: <br></p>
 <div class="footer" id="wrap" style="color: white">
+  <p>Results: </p>
   <table CELLSPACING=0>
       <thead>
         <tr>
@@ -181,6 +181,8 @@ th,td{
         {% endfor %}
       </tbody>
 </table>
+<p>q-k Graph: </p>
+<img src="static/q-k.png" alt="q-k graph" style="margin: auto; display: block; margin-top: 20px">
 </div>
 {% endif %}
 </div>
